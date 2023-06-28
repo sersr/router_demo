@@ -1,3 +1,4 @@
+import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/router.dart';
 
@@ -20,12 +21,25 @@ class _DetailPageState extends State<DetailPage> {
       body: Center(
           child: Column(
         children: [
-          btn(text: 'back', onTap: () => router.pop()),
+          btn(
+            text: 'back',
+            onTap: () {
+              if (isNRouter) {
+                router.pop();
+                return;
+              }
+              goRouter.pop();
+            },
+          ),
           btn(
             text: 'go page 01',
-            onTap: () => NavRoutes.detail01Build(
-                    message: 'go page 01', groupId: NPage.newGroupKey)
-                .go(),
+            onTap: () {
+              if (isNRouter) {
+                NavRoutes.detail01Build(
+                        message: 'go page 01', groupId: NPage.newGroupKey)
+                    .go();
+              }
+            },
           ),
         ],
       )),

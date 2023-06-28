@@ -13,7 +13,7 @@ class Routes {
 
   static Routes? _instance;
 
-  factory Routes({
+  static Routes init({
     bool newInstance = false,
     Map<String, dynamic> params = const {},
     Map<String, dynamic>? extra,
@@ -33,6 +33,7 @@ class Routes {
     _detail01Build = NPage(
       groupOwner: () => detail,
       path: 'detail01Build/:newKey',
+      redirectBuilder: redirect,
       pageBuilder: (entry) => MaterialIgnorePage(
           key: entry.pageKey,
           child: Nop.page(
@@ -48,6 +49,7 @@ class Routes {
     _detail02 = NPage(
       groupOwner: () => detail,
       path: 'detail02',
+      redirectBuilder: redirect,
       pageBuilder: (entry) => MaterialIgnorePage(
           key: entry.pageKey,
           child: Nop.page(
@@ -60,6 +62,7 @@ class Routes {
     _fffNewPage = NPage(
       groupOwner: () => detail,
       path: 'fffNewPage',
+      redirectBuilder: redirect,
       pageBuilder: (entry) => MaterialIgnorePage(
           key: entry.pageKey,
           child: Nop.page(
@@ -73,6 +76,7 @@ class Routes {
       groupOwner: true,
       pages: [_detail01Build, _detail02, _fffNewPage],
       path: 'detail',
+      redirectBuilder: redirect,
       pageBuilder: (entry) => _Routes.detailBuilder(
           entry,
           Nop.page(
@@ -94,7 +98,6 @@ class Routes {
     _home = NPageMain(
       pages: [_detail, _live],
       path: '/',
-      redirectBuilder: redirect,
       pageBuilder: (entry) => MaterialIgnorePage(
           key: entry.pageKey,
           child: const Nop.page(

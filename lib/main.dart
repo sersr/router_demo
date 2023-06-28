@@ -1,22 +1,35 @@
 import 'package:demo/_routes/route.dart';
 import 'package:demo/modules/detail/pages/page_01.dart';
+import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
 import 'package:nop/nop.dart';
 
 void main() {
-  // final entry = MaterialApp(
-  //   title: 'route demo',
-  //   onGenerateRoute: (settings) {
-  //     return Routes.root.onMatch(settings)?.wrapMaterial;
-  //   },
-  //   navigatorObservers: [
-  //     Nav.observer,
-  //   ],
-  // );
+  // goRouterApp();
+  routerApp();
+}
 
-  // timeDilation = 3;
-
+void goRouterApp() {
+  isNRouter = false;
+  Router;
   WidgetsFlutterBinding.ensureInitialized();
+  final String platformDefault =
+      WidgetsBinding.instance.platformDispatcher.defaultRouteName;
+  Log.w('path: $platformDefault');
+  final app = MaterialApp.router(
+    routerConfig: goRouter,
+    restorationScopeId: 'router',
+    title: 'go router demo',
+  );
+
+  runApp(app);
+}
+
+void routerApp() {
+  isNRouter = true;
+  WidgetsFlutterBinding.ensureInitialized();
+  // SystemNavigator.routeInformationUpdated(uri: Uri.parse('/'), replace: true);
+  // NavRoutes.detail(message: 'hello', groupId: null).goReplacement(null);
   decodeRestorationData();
 
   final reg = RegExp(r'\((package:)(.+?)/(.*)');
@@ -35,12 +48,14 @@ void main() {
     return newPath;
   };
 
-  final entry = MaterialApp.router(
-    restorationScopeId: 'hhhxxh',
-    routerConfig: router,
-    // builder: (context, child) {
-    //   return router.build(context);
-    // },
+  Router;
+  Routes.init();
+  router.restore();
+  final entry = MaterialApp(
+    restorationScopeId: 'router',
+    builder: (context, child) {
+      return router.build(context);
+    },
     title: 'router demo',
   );
   // final entry = MaterialApp.router(routerConfig: goRouter);

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
 
@@ -25,12 +26,12 @@ part 'route.g.dart';
   page: HomePage,
   restorationId: 'hello',
   classToNameReg: 'Page\$',
-  redirectFn: redirect,
   private: false,
   pages: [
     RouterPage(
       page: DetailPage,
       groupList: [DetailProvider],
+      redirectFn: redirect,
       pages: [
         RouterPage(page: Detail01Page.build),
         RouterPage(page: Detail02Page),
@@ -71,3 +72,26 @@ Widget fffPage(String hhh, [String m = '']) {
 class DetailProvider {}
 
 final router = Routes.router;
+
+final goRouter = GoRouter(
+  routes: [
+    GoRoute(
+        path: '/',
+        pageBuilder: (c, state) {
+          return MaterialPage(
+            child: const HomePage(),
+            key: state.pageKey,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: 'detail',
+            pageBuilder: (context, state) {
+              final message = state.queryParameters['message'];
+              return MaterialPage(
+                  child: DetailPage(message: message!), key: state.pageKey);
+            },
+          )
+        ]),
+  ],
+);

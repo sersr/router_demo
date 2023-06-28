@@ -1,4 +1,5 @@
 import 'package:demo/_routes/route.dart';
+import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
 import 'package:nop_annotations/annotation/router.dart';
 
@@ -37,6 +38,10 @@ class _HomePageState extends State<HomePage> {
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
                     child: const Text('go detail page')),
                 onTap: () {
+                  if (!isNRouter) {
+                    goRouter.go('/detail?message=sss');
+                    return;
+                  }
                   final groupId = router.ofEntry(context)?.groupId;
                   // router.go('/detail',
                   //     extra: {'message': 'home hhhh'}, groupId: groupId);

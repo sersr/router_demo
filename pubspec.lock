@@ -235,7 +235,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_web_plugins:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -365,7 +365,7 @@ packages:
       path: "../packages/nop"
       relative: true
     source: path
-    version: "0.0.3+1"
+    version: "0.0.4+1"
   nop_annotations:
     dependency: "direct main"
     description:
