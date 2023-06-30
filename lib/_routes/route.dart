@@ -2,7 +2,6 @@ import 'package:demo/modules/detail/pages/detail.dart';
 import 'package:demo/modules/detail/pages/page_01.dart';
 import 'package:demo/modules/detail/pages/page_02.dart';
 import 'package:demo/modules/live/pages/live.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
@@ -14,14 +13,6 @@ import '../modules/home/pages/home.dart';
 
 part 'route.g.dart';
 
-// @NopRouteMain(
-//   main: HomePage,
-//   pages: [
-//     RouteItem(
-//       page: DetailPage,
-//     )
-//   ],
-// )
 @RouterMain(
   page: HomePage,
   restorationId: 'hello',
@@ -44,14 +35,11 @@ part 'route.g.dart';
 )
 abstract class _Routes {
   static Page detailBuilder(RouteQueueEntry entry, Widget child) {
-    return MaterialIgnorePage(key: entry.pageKey, child: child);
-    // return CustomTransitionPage(
-    //   child: child,
-    //   transitionsBuilder: (BuildContext context, Animation<double> animation,
-    //       Animation<double> secondaryAnimation, Widget child) {
-    //     return child;
-    //   },
-    // );
+    return MaterialIgnorePage(
+      key: entry.pageKey,
+      restorationId: entry.restorationId,
+      child: child,
+    );
   }
 
   @RouteBuilderItem(pages: [Detail01Page.build])

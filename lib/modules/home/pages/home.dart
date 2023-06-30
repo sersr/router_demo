@@ -1,6 +1,8 @@
 import 'package:demo/_routes/route.dart';
 import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_nop/router.dart';
+import 'package:nop/nop.dart';
 import 'package:nop_annotations/annotation/router.dart';
 
 import '../../detail/pages/detail.dart';
@@ -13,7 +15,15 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with RestorationMixin, RouteQueueEntryStateMixin {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final root = RestorationScope.maybeOf(context);
+    Log.i('root: ${root == null}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,34 +34,40 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             btn(
-                text: 'data',
+              text: 'data',
+              onTap: () {
+                decodeRestorationData();
+              },
+            ),
+            btn(
+              text: 'hhh',
+              onTap: () {
+                Log.w(
+                    '${entry?.id} ${RestorationScope.maybeOf(context) == null}');
+              },
+            ),
+            btn(
+                text: 'go detailbuild',
                 onTap: () {
-                  decodeRestorationData();
+                  final groupId = router.ofEntry(context)?.groupId;
+                  router.goPage(Routes.detail01Build,
+                      params: {'newKey': 1},
+                      extra: {
+                        'message': 'hello build',
+                        'data': 'data',
+                      },
+                      groupId: groupId);
                 }),
             Material(
               color: Colors.blue,
               borderRadius: BorderRadius.circular(3),
               child: InkWell(
                 borderRadius: BorderRadius.circular(3),
+                onTap: onTap,
                 child: Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
                     child: const Text('go detail page')),
-                onTap: () {
-                  if (!isNRouter) {
-                    goRouter.go('/detail?message=sss');
-                    return;
-                  }
-                  final groupId = router.ofEntry(context)?.groupId;
-                  // router.go('/detail',
-                  //     extra: {'message': 'home hhhh'}, groupId: groupId);
-                  router.go('/detail/detail01Build/hellodddd?message=hello',
-                      groupId: groupId);
-                  // NavRoutes.detail(message: 'home to detail', groupId: groupId)
-                  //     .go();
-
-                  // goRouter.go('/detail');
-                },
               ),
             ),
           ],
@@ -59,4 +75,30 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  void onTap() {
+    if (!isNRouter) {
+      goRouter.go('/detail?message=sss');
+      return;
+    }
+    final groupId = router.ofEntry(context)?.groupId;
+    // router.go('/detail',
+    //     extra: {'message': 'home hhhh'}, groupId: groupId);
+    final c = router.go(
+        '/detail/detail01Build/23232?message=hello&data=hhhhaxx',
+        groupId: groupId);
+    entry = c;
+    // NavRoutes.detail(message: 'home to detail', groupId: groupId)
+    //     .go();
+
+    // goRouter.go('/detail');
+  }
+
+  @override
+  void whenComplete(RouteQueueEntry entry) {
+    Log.w('${entry.path} completed.');
+  }
+
+  @override
+  String get restorationId => 'home_scope';
 }

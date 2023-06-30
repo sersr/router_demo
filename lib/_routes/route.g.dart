@@ -18,58 +18,83 @@ class Routes {
     Map<String, dynamic> params = const {},
     Map<String, dynamic>? extra,
     Object? groupId,
+    List<NavigatorObserver> observers = const [],
   }) {
     if (!newInstance && _instance != null) {
       return _instance!;
     }
-    return _instance = Routes._().._init(params, extra, groupId);
+    return _instance = Routes._().._init(params, extra, groupId, observers);
   }
 
   void _init(
     Map<String, dynamic> params,
     Map<String, dynamic>? extra,
     Object? groupId,
+    List<NavigatorObserver> observers,
   ) {
     _detail01Build = NPage(
       groupOwner: () => detail,
       path: 'detail01Build/:newKey',
       redirectBuilder: redirect,
-      pageBuilder: (entry) => MaterialIgnorePage(
+      pageBuilder: (entry) {
+        var message = entry.queryParams['message'];
+        var newKey = entry.params['newKey'];
+        if (newKey is! int?) {
+          newKey = jsonDecode(newKey);
+        }
+        var data = entry.queryParams['data'];
+        if (data is! Data?) {
+          data = Data.fromJson2(data);
+        }
+        return MaterialIgnorePage(
           key: entry.pageKey,
+          restorationId: entry.restorationId,
           child: Nop.page(
             groupList: const [DetailProvider],
             builders: const [_Routes.detailWidgetBuild],
             group: entry.groupId,
-            child: Detail01Page.build(
-                message: entry.queryParams['message'],
-                hhh: entry.params['newKey']),
-          )),
+            child:
+                Detail01Page.build(message: message, hhh: newKey, data: data),
+          ),
+        );
+      },
     );
 
     _detail02 = NPage(
       groupOwner: () => detail,
       path: 'detail02',
       redirectBuilder: redirect,
-      pageBuilder: (entry) => MaterialIgnorePage(
+      pageBuilder: (entry) {
+        var message = entry.queryParams['message'];
+        return MaterialIgnorePage(
           key: entry.pageKey,
+          restorationId: entry.restorationId,
           child: Nop.page(
             groupList: const [DetailProvider],
             group: entry.groupId,
-            child: Detail02Page(message: entry.queryParams['message']),
-          )),
+            child: Detail02Page(message: message),
+          ),
+        );
+      },
     );
 
     _fffNewPage = NPage(
       groupOwner: () => detail,
       path: 'fffNewPage',
       redirectBuilder: redirect,
-      pageBuilder: (entry) => MaterialIgnorePage(
+      pageBuilder: (entry) {
+        var hhh = entry.queryParams['hhh'];
+        var m = entry.queryParams['m'];
+        return MaterialIgnorePage(
           key: entry.pageKey,
+          restorationId: entry.restorationId,
           child: Nop.page(
             groupList: const [DetailProvider],
             group: entry.groupId,
-            child: fffPage(entry.queryParams['hhh'], entry.queryParams['m']),
-          )),
+            child: fffPage(hhh, m),
+          ),
+        );
+      },
     );
 
     _detail = NPage(
@@ -77,32 +102,44 @@ class Routes {
       pages: [_detail01Build, _detail02, _fffNewPage],
       path: 'detail',
       redirectBuilder: redirect,
-      pageBuilder: (entry) => _Routes.detailBuilder(
+      pageBuilder: (entry) {
+        var message = entry.queryParams['message'];
+        return _Routes.detailBuilder(
           entry,
           Nop.page(
             groupList: const [DetailProvider],
             group: entry.groupId,
-            child: DetailPage(message: entry.queryParams['message']),
-          )),
+            child: DetailPage(message: message),
+          ),
+        );
+      },
     );
 
     _live = NPage(
       path: 'live',
-      pageBuilder: (entry) => MaterialIgnorePage(
+      pageBuilder: (entry) {
+        return MaterialIgnorePage(
           key: entry.pageKey,
+          restorationId: entry.restorationId,
           child: const Nop.page(
             child: LivePage(),
-          )),
+          ),
+        );
+      },
     );
 
     _home = NPageMain(
       pages: [_detail, _live],
       path: '/',
-      pageBuilder: (entry) => MaterialIgnorePage(
+      pageBuilder: (entry) {
+        return MaterialIgnorePage(
           key: entry.pageKey,
+          restorationId: entry.restorationId,
           child: const Nop.page(
             child: HomePage(),
-          )),
+          ),
+        );
+      },
     );
 
     _router = NRouter(
@@ -111,6 +148,7 @@ class Routes {
       params: params,
       extra: extra,
       groupId: groupId,
+      observers: observers,
     );
   }
 
@@ -136,10 +174,13 @@ class NavRoutes {
   /// [groupId]
   /// see: [NPage.newGroupKey] and [NPage.resolveGroupId]
   static RouterAction detail01Build(
-      {required String message, String newKey = '', required groupId}) {
+      {required String message,
+      int newKey = 0,
+      Data? data = const Data('hhhhh'),
+      required groupId}) {
     return RouterAction(Routes.detail01Build, Routes.router,
         params: {'newKey': newKey},
-        extra: {'message': message},
+        extra: {'message': message, 'data': data},
         groupId: groupId);
   }
 
