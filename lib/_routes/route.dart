@@ -37,7 +37,7 @@ abstract class _Routes {
   static Page detailBuilder(RouteQueueEntry entry, Widget child) {
     return MaterialIgnorePage(
       key: entry.pageKey,
-      restorationId: entry.restorationId,
+      entry: entry,
       child: child,
     );
   }

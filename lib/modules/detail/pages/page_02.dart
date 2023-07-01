@@ -15,16 +15,15 @@ class _Detail02PageState extends State<Detail02Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("detail 02 ${widget.message}"),
+        title: Text("detail02: ${widget.message}"),
       ),
       body: Center(
         child: Column(
           children: [
-            btn(text: ''),
             btn(
-              text: 'back',
+              text: 'go home',
               onTap: () {
-                router.popUntil((e) => e.page == Routes.home);
+                router.popUntil((e) => e.nPage == Routes.home);
               },
             ),
           ],

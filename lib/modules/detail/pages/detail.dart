@@ -16,7 +16,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("hello world ${widget.message}"),
+        title: Text("detail: ${widget.message}"),
       ),
       body: Center(
           child: Column(
@@ -48,15 +48,18 @@ class _DetailPageState extends State<DetailPage> {
 }
 
 Widget btn({required String text, void Function()? onTap}) {
-  return Material(
-    color: Colors.blue,
-    borderRadius: BorderRadius.circular(3),
-    child: InkWell(
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Material(
+      color: Colors.blue,
       borderRadius: BorderRadius.circular(3),
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-        child: Text(text),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(3),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+          child: Text(text),
+        ),
       ),
     ),
   );

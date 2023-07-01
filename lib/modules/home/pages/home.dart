@@ -18,17 +18,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with RestorationMixin, RouteQueueEntryStateMixin {
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final root = RestorationScope.maybeOf(context);
-    Log.i('root: ${root == null}');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("hello world"),
+        title: const Text("home"),
       ),
       body: Center(
         child: Column(
@@ -81,15 +74,15 @@ class _HomePageState extends State<HomePage>
       goRouter.go('/detail?message=sss');
       return;
     }
-    final groupId = router.ofEntry(context)?.groupId;
+    final groupId = RouteQueueEntry.of(context)?.groupId;
     // router.go('/detail',
     //     extra: {'message': 'home hhhh'}, groupId: groupId);
-    final c = router.go(
-        '/detail/detail01Build/23232?message=hello&data=hhhhaxx',
-        groupId: groupId);
+    // final c = router.go(
+    //     '/detail/detail01Build/23232?message=hello&data=hhhhaxx',
+    //     groupId: groupId);
+    final c =
+        NavRoutes.detail(message: 'home to detail', groupId: groupId).go();
     entry = c;
-    // NavRoutes.detail(message: 'home to detail', groupId: groupId)
-    //     .go();
 
     // goRouter.go('/detail');
   }

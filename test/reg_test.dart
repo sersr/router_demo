@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -9,10 +7,5 @@ void main() {
     final s = 'detail02Page'.replaceAll(reg, '');
     // ignore: avoid_print
     print(s);
-  });
-
-  test('json', () {
-    final ss = jsonEncode('hello');
-    print(ss);
   });
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
 
 import '../../../_routes/route.dart';
 import 'detail.dart';
 
-class Data {
+class Data implements NRouterJsonTransfrom {
   const Data(this.value);
   final String value;
   factory Data.fromJson(String data) {
@@ -18,19 +19,24 @@ class Data {
     return Data(data);
   }
 
+  @override
   String toJson() {
+    Log.w('toJson.');
     return value;
   }
 }
 
 class Detail01Page extends StatefulWidget {
-  const Detail01Page({super.key, @Param() required this.message});
+  const Detail01Page(
+      {super.key, @Param() required this.message, this.hhh = 0, this.data});
   const Detail01Page.build(
       {super.key,
       required this.message,
-      @Param(name: 'newKey') int hhh = 0,
-      @Param.query(fromJson: Data.fromJson2) Data? data = const Data('hhhhh')});
+      @Param(name: 'newKey') this.hhh = 0,
+      @Param.query(fromJson: Data.fromJson2) this.data = const Data('hhhhh')});
   final String message;
+  final int? hhh;
+  final Data? data;
   @override
   State<Detail01Page> createState() => _Detail01PageState();
 }
@@ -40,11 +46,14 @@ class _Detail01PageState extends State<Detail01Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("hello world ${widget.message}"),
+        title: Text("detail01: ${widget.message}"),
       ),
       body: Center(
         child: Column(
           children: [
+            Container(height: 20),
+            Text('${widget.data?.value} | ${widget.hhh} | ${widget.message}'),
+            Container(height: 30),
             btn(text: 'back', onTap: () => router.pop()),
             btn(
                 text: 'demo',

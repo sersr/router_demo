@@ -40,7 +40,7 @@ class Routes {
         var message = entry.queryParams['message'];
         var newKey = entry.params['newKey'];
         if (newKey is! int?) {
-          newKey = jsonDecode(newKey);
+          newKey = jsonDecodeCustom(newKey);
         }
         var data = entry.queryParams['data'];
         if (data is! Data?) {
@@ -48,7 +48,7 @@ class Routes {
         }
         return MaterialIgnorePage(
           key: entry.pageKey,
-          restorationId: entry.restorationId,
+          entry: entry,
           child: Nop.page(
             groupList: const [DetailProvider],
             builders: const [_Routes.detailWidgetBuild],
@@ -68,7 +68,7 @@ class Routes {
         var message = entry.queryParams['message'];
         return MaterialIgnorePage(
           key: entry.pageKey,
-          restorationId: entry.restorationId,
+          entry: entry,
           child: Nop.page(
             groupList: const [DetailProvider],
             group: entry.groupId,
@@ -87,7 +87,7 @@ class Routes {
         var m = entry.queryParams['m'];
         return MaterialIgnorePage(
           key: entry.pageKey,
-          restorationId: entry.restorationId,
+          entry: entry,
           child: Nop.page(
             groupList: const [DetailProvider],
             group: entry.groupId,
@@ -120,7 +120,7 @@ class Routes {
       pageBuilder: (entry) {
         return MaterialIgnorePage(
           key: entry.pageKey,
-          restorationId: entry.restorationId,
+          entry: entry,
           child: const Nop.page(
             child: LivePage(),
           ),
@@ -134,7 +134,7 @@ class Routes {
       pageBuilder: (entry) {
         return MaterialIgnorePage(
           key: entry.pageKey,
-          restorationId: entry.restorationId,
+          entry: entry,
           child: const Nop.page(
             child: HomePage(),
           ),
@@ -175,7 +175,7 @@ class NavRoutes {
   /// see: [NPage.newGroupKey] and [NPage.resolveGroupId]
   static RouterAction detail01Build(
       {required String message,
-      int newKey = 0,
+      int? newKey = 0,
       Data? data = const Data('hhhhh'),
       required groupId}) {
     return RouterAction(Routes.detail01Build, Routes.router,
