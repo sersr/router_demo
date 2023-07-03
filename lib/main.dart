@@ -4,7 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:nop/nop.dart';
 
 void main() {
+  final reg = RegExp(r'\((package:)(.+?)/(.*)');
+
+  Log.logPathFn = (path) {
+    final newPath = path.replaceFirstMapped(reg, (match) {
+      final package = match[2];
+      return switch (package) {
+        == 'demo' => '(./lib/${match[3]}',
+        == 'flutter_nop' => '(../../packages/flutter_nop/lib/${match[3]}',
+        _ => '',
+      };
+    });
+    // if (newPath.isEmpty) {
+    //   return false;
+    // }
+    return newPath;
+  };
+
   // goRouterApp();
+
   routerApp();
 }
 
@@ -30,22 +48,6 @@ void routerApp() {
   // SystemNavigator.routeInformationUpdated(uri: Uri.parse('/'), replace: true);
   // NavRoutes.detail(message: 'hello', groupId: null).goReplacement(null);
   Routes.init();
-
-  final reg = RegExp(r'\((package:)(.+?)/(.*)');
-  Log.logPathFn = (path) {
-    final newPath = path.replaceFirstMapped(reg, (match) {
-      final package = match[2];
-      if (package == 'demo') {
-        return '(./lib/${match[3]}';
-      }
-
-      return '';
-    });
-    if (newPath.isEmpty) {
-      return null;
-    }
-    return newPath;
-  };
 
   final entry = MaterialApp(
     restorationScopeId: 'router',
