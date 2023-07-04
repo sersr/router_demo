@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_nop/router.dart';
@@ -44,7 +45,7 @@ class Detail01Page extends StatefulWidget {
 class _Detail01PageState extends State<Detail01Page> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final child = Scaffold(
       appBar: AppBar(
         title: Text("detail01: ${widget.message}"),
       ),
@@ -80,7 +81,17 @@ class _Detail01PageState extends State<Detail01Page> {
         ),
       ),
     );
+
+    return WillPopScope(
+        child: child,
+        onWillPop: () {
+          index += 1;
+          Log.w('index: $index');
+          return SynchronousFuture(index > 3);
+        });
   }
+
+  int index = 0;
 }
 
 void decodeRestorationData() async {
@@ -95,5 +106,5 @@ void decodeRestorationData() async {
       data.buffer.asByteData(data.offsetInBytes, data.lengthInBytes);
   final d = const StandardMessageCodec().decodeMessage(encoded)
       as Map<Object?, Object?>?;
-  Log.e('data: $d', onlyDebug: false, showTag: false);
+  Log.e('data: ${d?.logPretty()}', onlyDebug: false, showTag: false);
 }

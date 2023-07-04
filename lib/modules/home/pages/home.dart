@@ -74,14 +74,14 @@ class _HomePageState extends State<HomePage>
       goRouter.go('/detail?message=sss');
       return;
     }
-    final groupId = RouteQueueEntry.of(context)?.groupId;
     // router.go('/detail',
     //     extra: {'message': 'home hhhh'}, groupId: groupId);
     // final c = router.go(
     //     '/detail/detail01Build/23232?message=hello&data=hhhhaxx',
     //     groupId: groupId);
     final c =
-        NavRoutes.detail(message: 'home to detail', groupId: groupId).go();
+        NavRoutes.detail(message: 'home to detail', groupId: NPage.newGroupKey)
+            .go();
     entry = c;
 
     // goRouter.go('/detail');
