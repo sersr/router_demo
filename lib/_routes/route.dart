@@ -17,6 +17,7 @@ part 'route.g.dart';
   page: HomePage,
   restorationId: 'hello',
   classToNameReg: 'Page\$',
+  errorBuilder: errorBuild,
   private: false,
   pages: [
     RouterPage(
@@ -58,6 +59,13 @@ Widget fffPage(String hhh, [String m = '']) {
 }
 
 class DetailProvider {}
+
+RouteQueueEntry errorBuild(
+    String location, Map params, Map extra, Object? groupId) {
+  Log.e('error:\n$location');
+  return RouteQueueEntry.error(
+      path: location, params: params, groupId: groupId);
+}
 
 final router = Routes.router;
 

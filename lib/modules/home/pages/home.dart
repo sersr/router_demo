@@ -40,28 +40,24 @@ class _HomePageState extends State<HomePage>
               },
             ),
             btn(
-                text: 'go detailbuild',
-                onTap: () {
-                  final groupId = router.ofEntry(context)?.groupId;
-                  router.goPage(Routes.detail01Build,
-                      params: {'newKey': 1},
-                      extra: {
-                        'message': 'hello build',
-                        'data': 'data',
-                      },
-                      groupId: groupId);
-                }),
-            Material(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(3),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(3),
-                onTap: onTap,
-                child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-                    child: const Text('go detail page')),
-              ),
+              text: 'go detailbuild',
+              onTap: () {
+                final groupId = router.ofEntry(context)?.groupId;
+                router.goPage(Routes.detail01Build,
+                    params: {'newKey': 1},
+                    extra: {
+                      'message': 'hello build',
+                      'data': 'data',
+                    },
+                    groupId: groupId);
+              },
+            ),
+            btn(text: 'go detail page', onTap: onTap),
+            btn(
+              text: 'error test',
+              onTap: () {
+                router.go('/error/path/test');
+              },
             ),
           ],
         ),
@@ -74,6 +70,7 @@ class _HomePageState extends State<HomePage>
       goRouter.go('/detail?message=sss');
       return;
     }
+
     // router.go('/detail',
     //     extra: {'message': 'home hhhh'}, groupId: groupId);
     // final c = router.go(

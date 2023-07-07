@@ -131,6 +131,7 @@ class Routes {
     );
 
     _home = NPageMain(
+      errorPageBuilder: errorBuild,
       pages: [_detail, _live],
       path: '/',
       pageBuilder: (entry) {
