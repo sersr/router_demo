@@ -1,6 +1,7 @@
 import 'package:demo/_routes/route.dart';
 import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_nop/flutter_nop.dart';
 import 'package:nop/nop.dart';
 
 void main() {
@@ -28,7 +29,6 @@ void main() {
 
 void goRouterApp() {
   isNRouter = false;
-  Router;
   WidgetsFlutterBinding.ensureInitialized();
   final String platformDefault =
       WidgetsBinding.instance.platformDispatcher.defaultRouteName;
@@ -48,6 +48,10 @@ void routerApp() {
   // SystemNavigator.routeInformationUpdated(uri: Uri.parse('/'), replace: true);
   // NavRoutes.detail(message: 'hello', groupId: null).goReplacement(null);
   Routes.init();
+  Nav.put(() => DetailProvider());
+  Nav.put(() => HomeProvider());
+  // global
+  Nop.of<DetailProvider>(null);
 
   final entry = MaterialApp(
     restorationScopeId: 'router',

@@ -58,7 +58,37 @@ Widget fffPage(String hhh, [String m = '']) {
   return Container();
 }
 
-class DetailProvider {}
+class HomeProvider with NopLifeCycle {
+  @override
+  void nopInit() {
+    super.nopInit();
+    Log.i('init. $groupId');
+  }
+
+  @override
+  void nopDispose() {
+    super.nopDispose();
+    Log.i('dispose.');
+  }
+
+  @override
+  void onDisposeCancel() {
+    super.onDisposeCancel();
+    Log.i('cancel.');
+  }
+
+  @override
+  void onDisposeStart() {
+    super.onDisposeStart();
+    Log.i('start.');
+  }
+}
+
+class DetailProvider with NopLifeCycle {
+  void log() {
+    Log.e('isGlobalData: $isGlobalData |groupId: $groupId');
+  }
+}
 
 RouteQueueEntry errorBuild(
     String location, Map params, Map extra, Object? groupId) {

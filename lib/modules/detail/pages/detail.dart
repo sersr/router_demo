@@ -1,5 +1,6 @@
 import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
 
 import '../../../_routes/route.dart';
@@ -14,7 +15,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final child = Scaffold(
       appBar: AppBar(
         title: Text("detail: ${widget.message}"),
       ),
@@ -35,14 +36,24 @@ class _DetailPageState extends State<DetailPage> {
             text: 'go page 01',
             onTap: () {
               if (isNRouter) {
-                NavRoutes.detail01Build(
-                        message: 'go page 01', groupId: NPage.newGroupKey)
+                final id = RouteQueueEntry.of(context)?.groupId;
+                NavRoutes.detail01Build(message: 'go page 01', groupId: id)
                     .go();
               }
             },
           ),
+          btn(
+            text: 'nav provider',
+            onTap: () {
+              context.getType<DetailProvider>(group: null).log();
+            },
+          )
         ],
       )),
+    );
+    return Nop.value(
+      value: HomeProvider(),
+      child: child,
     );
   }
 }

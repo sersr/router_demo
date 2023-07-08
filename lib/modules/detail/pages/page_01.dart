@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
@@ -76,7 +77,13 @@ class _Detail01PageState extends State<Detail01Page> {
                 text: 'data',
                 onTap: () {
                   decodeRestorationData();
-                })
+                }),
+            btn(
+              text: 'nav provider',
+              onTap: () {
+                context.getType<DetailProvider>(group: null).log();
+              },
+            )
           ],
         ),
       ),
