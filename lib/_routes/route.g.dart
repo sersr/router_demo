@@ -35,7 +35,7 @@ class Routes {
     List<NavigatorObserver> observers,
   ) {
     _detail01Build = NPage(
-      groupOwner: () => detail,
+      useGroupId: true,
       path: 'detail01Build/:newKey',
       redirectBuilder: redirect,
       pageBuilder: (entry) {
@@ -63,7 +63,7 @@ class Routes {
     );
 
     _detail02 = NPage(
-      groupOwner: () => detail,
+      useGroupId: true,
       path: 'detail02',
       redirectBuilder: redirect,
       pageBuilder: (entry) {
@@ -81,7 +81,7 @@ class Routes {
     );
 
     _fffNewPage = NPage(
-      groupOwner: () => detail,
+      useGroupId: true,
       path: 'fffNewPage',
       redirectBuilder: redirect,
       pageBuilder: (entry) {
@@ -100,7 +100,7 @@ class Routes {
     );
 
     _detail = NPage(
-      groupOwner: true,
+      useGroupId: true,
       pages: [_detail01Build, _detail02, _fffNewPage],
       path: 'detail',
       redirectBuilder: redirect,
