@@ -44,7 +44,7 @@ abstract class _Routes {
   }
 
   @RouteBuilderItem(pages: [Detail01Page.build])
-  static Widget detailWidgetBuild(BuildContext context, Widget child) {
+  static Widget detailWidgetBuild(Widget child) {
     return child;
   }
 }
@@ -87,6 +87,24 @@ class HomeProvider with NopLifeCycle {
 class DetailProvider with NopLifeCycle {
   void log() {
     Log.e('isGlobalData: $isGlobalData |groupId: $groupId');
+  }
+
+  @override
+  void onDisposeCancel() {
+    Log.w('cancel');
+    super.onDisposeCancel();
+  }
+
+  @override
+  void onDisposeStart() {
+    Log.w('start.');
+    super.onDisposeStart();
+  }
+
+  @override
+  void nopDispose() {
+    Log.w('dispose.');
+    super.nopDispose();
   }
 }
 

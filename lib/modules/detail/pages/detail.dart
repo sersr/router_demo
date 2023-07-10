@@ -1,7 +1,7 @@
 import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
+import 'package:nop/nop.dart';
 
 import '../../../_routes/route.dart';
 
@@ -13,6 +13,18 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  @override
+  void initState() {
+    super.initState();
+    Log.w('init.');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.getGrass<DetailProvider>(group: null).log();
+  }
+
   @override
   Widget build(BuildContext context) {
     final child = Scaffold(
@@ -45,16 +57,24 @@ class _DetailPageState extends State<DetailPage> {
           btn(
             text: 'nav provider',
             onTap: () {
-              context.getType<DetailProvider>(group: null).log();
+              context.getGrass<DetailProvider>(group: null).log();
             },
-          )
+          ),
+          btn(
+            text: 'repalce',
+            onTap: () {
+              NavRoutes.detail(message: 'repalce', groupId: NPage.newGroupKey)
+                  .goReplacement();
+            },
+          ),
         ],
       )),
     );
-    return Nop.value(
-      value: HomeProvider(),
-      child: child,
-    );
+    return child;
+    // return Green.value(
+    //   value: HomeProvider(),
+    //   child: child,
+    // );
   }
 }
 

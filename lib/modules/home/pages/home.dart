@@ -1,7 +1,6 @@
 import 'package:demo/_routes/route.dart';
 import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/annotation/router.dart';
@@ -63,9 +62,16 @@ class _HomePageState extends State<HomePage>
             btn(
               text: 'nav provider',
               onTap: () {
-                context.getType<DetailProvider>().log();
+                context.getGrass<DetailProvider>().log();
               },
-            )
+            ),
+            btn(
+              text: 'log routeQueue',
+              onTap: () {
+                // ignore: invalid_use_of_visible_for_testing_member
+                router.routerDelegate.routeQueue.log();
+              },
+            ),
           ],
         ),
       ),

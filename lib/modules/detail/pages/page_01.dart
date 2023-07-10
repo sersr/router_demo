@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
@@ -13,17 +12,14 @@ class Data implements NRouterJsonTransfrom {
   const Data(this.value);
   final String value;
   factory Data.fromJson(String data) {
-    Log.w('transform: $data');
     return Data(data);
   }
   factory Data.fromJson2(String data) {
-    Log.w('transform: $data');
     return Data(data);
   }
 
   @override
   String toJson() {
-    Log.w('toJson.');
     return value;
   }
 }
@@ -81,7 +77,7 @@ class _Detail01PageState extends State<Detail01Page> {
             btn(
               text: 'nav provider',
               onTap: () {
-                context.getType<DetailProvider>(group: null).log();
+                context.getGrass<DetailProvider>(group: null).log();
               },
             )
           ],

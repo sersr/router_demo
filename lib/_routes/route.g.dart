@@ -36,6 +36,7 @@ class Routes {
   ) {
     _detail01Build = NPage(
       useGroupId: true,
+      groupList: const [DetailProvider],
       path: 'detail01Build/:newKey',
       redirectBuilder: redirect,
       pageBuilder: (entry) {
@@ -49,71 +50,49 @@ class Routes {
           data = Data.fromJson2(data);
         }
         return MaterialIgnorePage(
-          key: entry.pageKey,
-          entry: entry,
-          child: Nop.page(
-            groupList: const [DetailProvider],
-            builders: const [_Routes.detailWidgetBuild],
-            group: entry.groupId,
-            child:
-                Detail01Page.build(message: message, hhh: newKey, data: data),
-          ),
-        );
+            key: entry.pageKey,
+            entry: entry,
+            child: _Routes.detailWidgetBuild(
+                Detail01Page.build(message: message, hhh: newKey, data: data)));
       },
     );
 
     _detail02 = NPage(
       useGroupId: true,
+      groupList: const [DetailProvider],
       path: 'detail02',
       redirectBuilder: redirect,
       pageBuilder: (entry) {
         var message = entry.queryParams['message'];
         return MaterialIgnorePage(
-          key: entry.pageKey,
-          entry: entry,
-          child: Nop.page(
-            groupList: const [DetailProvider],
-            group: entry.groupId,
-            child: Detail02Page(message: message),
-          ),
-        );
+            key: entry.pageKey,
+            entry: entry,
+            child: Detail02Page(message: message));
       },
     );
 
     _fffNewPage = NPage(
       useGroupId: true,
+      groupList: const [DetailProvider],
       path: 'fffNewPage',
       redirectBuilder: redirect,
       pageBuilder: (entry) {
         var hhh = entry.queryParams['hhh'];
         var m = entry.queryParams['m'];
         return MaterialIgnorePage(
-          key: entry.pageKey,
-          entry: entry,
-          child: Nop.page(
-            groupList: const [DetailProvider],
-            group: entry.groupId,
-            child: fffPage(hhh, m),
-          ),
-        );
+            key: entry.pageKey, entry: entry, child: fffPage(hhh, m));
       },
     );
 
     _detail = NPage(
       useGroupId: true,
       pages: [_detail01Build, _detail02, _fffNewPage],
+      groupList: const [DetailProvider],
       path: 'detail',
       redirectBuilder: redirect,
       pageBuilder: (entry) {
         var message = entry.queryParams['message'];
-        return _Routes.detailBuilder(
-          entry,
-          Nop.page(
-            groupList: const [DetailProvider],
-            group: entry.groupId,
-            child: DetailPage(message: message),
-          ),
-        );
+        return _Routes.detailBuilder(entry, DetailPage(message: message));
       },
     );
 
@@ -121,12 +100,7 @@ class Routes {
       path: 'live',
       pageBuilder: (entry) {
         return MaterialIgnorePage(
-          key: entry.pageKey,
-          entry: entry,
-          child: const Nop.page(
-            child: LivePage(),
-          ),
-        );
+            key: entry.pageKey, entry: entry, child: const LivePage());
       },
     );
 
@@ -136,12 +110,7 @@ class Routes {
       path: '/',
       pageBuilder: (entry) {
         return MaterialIgnorePage(
-          key: entry.pageKey,
-          entry: entry,
-          child: const Nop.page(
-            child: HomePage(),
-          ),
-        );
+            key: entry.pageKey, entry: entry, child: const HomePage());
       },
     );
 
@@ -175,7 +144,7 @@ class NavRoutes {
   NavRoutes._();
 
   /// [groupId]
-  /// see: [NPage.newGroupKey] and [NPage.resolveGroupId]
+  /// see: [NPage.newGroupKey]
   static RouterAction detail01Build(
       {required String message,
       int? newKey = 0,
@@ -188,14 +157,14 @@ class NavRoutes {
   }
 
   /// [groupId]
-  /// see: [NPage.newGroupKey] and [NPage.resolveGroupId]
+  /// see: [NPage.newGroupKey]
   static RouterAction detail02({required String message, required groupId}) {
     return RouterAction(Routes.detail02, Routes.router,
         extra: {'message': message}, groupId: groupId);
   }
 
   /// [groupId]
-  /// see: [NPage.newGroupKey] and [NPage.resolveGroupId]
+  /// see: [NPage.newGroupKey]
   static RouterAction fffNewPage(
       {required String hhh, String m = '', required groupId}) {
     return RouterAction(Routes.fffNewPage, Routes.router,
@@ -203,7 +172,7 @@ class NavRoutes {
   }
 
   /// [groupId]
-  /// see: [NPage.newGroupKey] and [NPage.resolveGroupId]
+  /// see: [NPage.newGroupKey]
   static RouterAction detail({required String message, required groupId}) {
     return RouterAction(Routes.detail, Routes.router,
         extra: {'message': message}, groupId: groupId);
