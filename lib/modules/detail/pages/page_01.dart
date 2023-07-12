@@ -77,7 +77,7 @@ class _Detail01PageState extends State<Detail01Page> {
             btn(
               text: 'nav provider',
               onTap: () {
-                context.getGrass<DetailProvider>(group: null).log();
+                context.grass<DetailProvider>(group: null).log();
               },
             )
           ],

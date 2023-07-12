@@ -50,7 +50,6 @@ abstract class _Routes {
 }
 
 RouteQueueEntry redirect(RouteQueueEntry entry) {
-  Log.w('redirect.');
   return entry;
 }
 
@@ -71,34 +70,27 @@ class HomeProvider with NopLifeCycle {
     Log.i('dispose.');
   }
 
-  @override
-  void onDisposeCancel() {
-    super.onDisposeCancel();
-    Log.i('cancel.');
-  }
-
-  @override
-  void onDisposeStart() {
-    super.onDisposeStart();
-    Log.i('start.');
+  void homeLog() {
+    Log.e('home: isGlobalData: $isGlobalData |groupId: $groupId');
   }
 }
 
 class DetailProvider with NopLifeCycle {
   void log() {
-    Log.e('isGlobalData: $isGlobalData |groupId: $groupId');
+    Log.e('isGlobalData: $isGlobalData |groupId: $groupId |popped: $poped');
+    getType<HomeProvider>().homeLog();
   }
 
   @override
-  void onDisposeCancel() {
-    Log.w('cancel');
-    super.onDisposeCancel();
+  void onPop() {
+    super.onPop();
+    Log.w('popped.');
   }
 
   @override
-  void onDisposeStart() {
-    Log.w('start.');
-    super.onDisposeStart();
+  void nopInit() {
+    super.nopInit();
+    getType<HomeProvider>();
   }
 
   @override

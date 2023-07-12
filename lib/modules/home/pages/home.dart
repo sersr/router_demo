@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage>
             btn(
               text: 'nav provider',
               onTap: () {
-                context.getGrass<DetailProvider>().log();
+                context.grass<DetailProvider>().log();
               },
             ),
             btn(

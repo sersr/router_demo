@@ -1,7 +1,7 @@
 import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_nop/router.dart';
-import 'package:nop/nop.dart';
 
 import '../../../_routes/route.dart';
 
@@ -14,15 +14,9 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   @override
-  void initState() {
-    super.initState();
-    Log.w('init.');
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    context.getGrass<DetailProvider>(group: null).log();
+    // context.grass<DetailProvider>(group: null).log();
   }
 
   @override
@@ -39,6 +33,9 @@ class _DetailPageState extends State<DetailPage> {
             onTap: () {
               if (isNRouter) {
                 router.pop();
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                  context.grass<DetailProvider>().log();
+                });
                 return;
               }
               goRouter.pop();
@@ -54,12 +51,15 @@ class _DetailPageState extends State<DetailPage> {
               }
             },
           ),
-          btn(
-            text: 'nav provider',
-            onTap: () {
-              context.getGrass<DetailProvider>(group: null).log();
-            },
-          ),
+          Builder(builder: (context) {
+            return btn(
+              text: 'nav provider',
+              onTap: () {
+                context.grass<DetailProvider>().log();
+                context.grass<HomeProvider>().homeLog();
+              },
+            );
+          }),
           btn(
             text: 'repalce',
             onTap: () {
@@ -70,11 +70,11 @@ class _DetailPageState extends State<DetailPage> {
         ],
       )),
     );
-    return child;
-    // return Green.value(
-    //   value: HomeProvider(),
-    //   child: child,
-    // );
+    // return child;
+    return Green.value(
+      value: HomeProvider(),
+      child: child,
+    );
   }
 }
 
