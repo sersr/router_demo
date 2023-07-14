@@ -60,7 +60,7 @@ class _Detail01PageState extends State<Detail01Page> {
 
                   final entry =
                       NavRoutes.detail02(message: 'demo', groupId: groupId)
-                          .goReplacement('....');
+                          .goReplacement(result: '....');
                   // ..goUntil((e) => e.page == Routes.detail01PageBuild);
                   entry.future.then((value) {
                     // developer.postEvent('Flutter.Error', {'data': 'error'});

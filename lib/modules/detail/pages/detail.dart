@@ -64,7 +64,15 @@ class _DetailPageState extends State<DetailPage> {
             text: 'repalce',
             onTap: () {
               NavRoutes.detail(message: 'repalce', groupId: NPage.newGroupKey)
-                  .goReplacement();
+                  .goReplacement(immediated: false);
+            },
+          ),
+          btn(
+            text: 'repalce immediated',
+            onTap: () {
+              NavRoutes.detail(
+                      message: 'repalce immediated', groupId: NPage.newGroupKey)
+                  .goReplacement(immediated: true);
             },
           ),
         ],
