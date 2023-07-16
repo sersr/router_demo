@@ -22,6 +22,9 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       appBar: AppBar(
         title: const Text("home"),
+        backgroundColor: Colors.blue,
+        shadowColor: Colors.black,
+        elevation: 5,
       ),
       body: Center(
         child: Column(
@@ -30,13 +33,6 @@ class _HomePageState extends State<HomePage>
               text: 'data',
               onTap: () {
                 decodeRestorationData();
-              },
-            ),
-            btn(
-              text: 'hhh',
-              onTap: () {
-                Log.w(
-                    '${entry?.id} ${RestorationScope.maybeOf(context) == null}');
               },
             ),
             btn(

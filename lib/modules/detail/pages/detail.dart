@@ -24,6 +24,7 @@ class _DetailPageState extends State<DetailPage> {
     final child = Scaffold(
       appBar: AppBar(
         title: Text("detail: ${widget.message}"),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
           child: Column(

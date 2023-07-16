@@ -1,13 +1,17 @@
 import 'package:demo/_routes/route.dart';
 import 'package:demo/modules/status.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/flutter_nop.dart';
+import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
 
 void main() {
   final reg = RegExp(r'\((package:)(.+?)/(.*)');
 
   Log.logPathFn = (path) {
+    return path;
+    if (defaultTargetPlatform == TargetPlatform.macOS) {}
     final newPath = path.replaceFirstMapped(reg, (match) {
       final package = match[2];
       return switch (package) {
@@ -51,7 +55,7 @@ void routerApp() {
   Nav.put(() => DetailProvider());
   Nav.put(() => HomeProvider());
   // global
-  Nop.of<DetailProvider>(null);
+  Green.of<DetailProvider>(null);
 
   final entry = MaterialApp(
     restorationScopeId: 'router',

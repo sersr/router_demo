@@ -56,14 +56,13 @@ class _Detail01PageState extends State<Detail01Page> {
             btn(
                 text: 'demo',
                 onTap: () {
-                  final groupId = router.ofEntry(context)?.groupId;
+                  final groupId = RouteQueueEntry.of(context)?.groupId;
 
                   final entry =
                       NavRoutes.detail02(message: 'demo', groupId: groupId)
-                          .goReplacement(result: '....');
-                  // ..goUntil((e) => e.page == Routes.detail01PageBuild);
+                          // .goReplacement(result: '....');
+                          .goUntil((e) => e.nPage == Routes.home);
                   entry.future.then((value) {
-                    // developer.postEvent('Flutter.Error', {'data': 'error'});
                     Log.w('value: $value', onlyDebug: false);
                   });
 
