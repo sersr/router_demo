@@ -1,6 +1,5 @@
 import 'package:demo/_routes/route.dart';
 import 'package:demo/modules/status.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
@@ -10,20 +9,11 @@ void main() {
   final reg = RegExp(r'\((package:)(.+?)/(.*)');
 
   Log.logPathFn = (path) {
-    return path;
-    if (defaultTargetPlatform == TargetPlatform.macOS) {}
-    final newPath = path.replaceFirstMapped(reg, (match) {
-      final package = match[2];
-      return switch (package) {
-        == 'demo' => '(./lib/${match[3]}',
-        == 'flutter_nop' => '(../../packages/flutter_nop/lib/${match[3]}',
-        _ => '',
-      };
-    });
-    // if (newPath.isEmpty) {
-    //   return false;
-    // }
-    return newPath;
+    final match = reg.firstMatch(path);
+    return switch (match?[2]) {
+      == 'hide other package' => false,
+      _ => path,
+    };
   };
 
   // goRouterApp();
