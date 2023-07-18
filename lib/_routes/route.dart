@@ -78,7 +78,7 @@ class HomeProvider with NopLifeCycle {
 class DetailProvider with NopLifeCycle {
   void log() {
     Log.e('isGlobalData: $isGlobalData |groupId: $groupId |popped: $poped');
-    getType<HomeProvider>().homeLog();
+    getType<HomeProvider>(group: groupId).homeLog();
   }
 
   @override
@@ -90,7 +90,7 @@ class DetailProvider with NopLifeCycle {
   @override
   void nopInit() {
     super.nopInit();
-    getType<HomeProvider>();
+    getType<HomeProvider>(group: groupId);
   }
 
   @override

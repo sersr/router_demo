@@ -57,6 +57,8 @@ class _DetailPageState extends State<DetailPage> {
               text: 'nav provider',
               onTap: () {
                 context.grass<DetailProvider>().log();
+                context.grass<HomeProvider>(group: context.groupId).homeLog();
+                // create local value
                 context.grass<HomeProvider>().homeLog();
               },
             );

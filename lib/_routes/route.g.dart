@@ -18,13 +18,14 @@ class Routes {
     Map<String, dynamic> params = const {},
     Map<String, dynamic>? extra,
     Object? groupId,
+    bool updateLocation = false,
     List<NavigatorObserver> observers = const [],
   }) {
     if (!newInstance && _instance != null) {
       return _instance!;
     }
     final instance = _instance = Routes._();
-    instance._init(params, extra, groupId, observers);
+    instance._init(params, extra, groupId, observers, updateLocation);
     return instance;
   }
 
@@ -33,6 +34,7 @@ class Routes {
     Map<String, dynamic>? extra,
     Object? groupId,
     List<NavigatorObserver> observers,
+    bool updateLocation,
   ) {
     _detail01Build = NPage(
       useGroupId: true,
@@ -121,6 +123,7 @@ class Routes {
       extra: extra,
       groupId: groupId,
       observers: observers,
+      updateLocation: updateLocation,
     );
   }
 
@@ -143,6 +146,7 @@ class Routes {
 class NavRoutes {
   NavRoutes._();
 
+  /// [newKey] : [Detail01Page.hhh]
   /// [groupId]
   /// see: [NPage.newGroupKey]
   static RouterAction detail01Build(
@@ -178,11 +182,15 @@ class NavRoutes {
         extra: {'message': message}, groupId: groupId);
   }
 
-  static RouterAction live() {
-    return RouterAction(Routes.live, Routes.router);
+  /// [groupId]
+  /// see: [NPage.newGroupKey]
+  static RouterAction live({groupId}) {
+    return RouterAction(Routes.live, Routes.router, groupId: groupId);
   }
 
-  static RouterAction home() {
-    return RouterAction(Routes.home, Routes.router);
+  /// [groupId]
+  /// see: [NPage.newGroupKey]
+  static RouterAction home({groupId}) {
+    return RouterAction(Routes.home, Routes.router, groupId: groupId);
   }
 }
