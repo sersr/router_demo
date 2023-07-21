@@ -37,14 +37,13 @@ void goRouterApp() {
 void routerApp() {
   isNRouter = true;
 
-  // SystemNavigator.routeInformationUpdated(uri: Uri.parse('/'), replace: true);
-  // NavRoutes.detail(message: 'hello', groupId: null).goReplacement(null);
   Routes.init();
   router.put(() => DetailProvider());
   router.put(() => HomeProvider());
+  router.put(() => DetailOuter.outer);
   // global
 
-  router.grass<DetailProvider>();
+  router.global<DetailProvider>();
 
   final entry = MaterialApp(
     restorationScopeId: 'router',

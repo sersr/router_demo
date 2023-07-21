@@ -71,13 +71,23 @@ class HomeProvider with NopLifeCycle {
   }
 
   void homeLog() {
-    Log.e('home: isGlobalData: $isGlobalData |groupId: $groupId');
+    Log.e('home: isGlobal: $isGlobal |groupId: $groupId');
+  }
+}
+
+class DetailOuter {
+  static final outer = DetailOuter();
+
+  void log() {
+    final listener = NopLifeCycle.checkIsNopLisenter(this);
+    Log.e('${listener?.label} ${listener?.length}');
   }
 }
 
 class DetailProvider with NopLifeCycle {
   void log() {
-    Log.e('isGlobalData: $isGlobalData |groupId: $groupId |popped: $poped');
+    Log.e('$label isGlobal: $isGlobal |groupId: $groupId |popped: $poped.');
+
     getType<HomeProvider>(group: groupId).homeLog();
   }
 
@@ -90,6 +100,7 @@ class DetailProvider with NopLifeCycle {
   @override
   void nopInit() {
     super.nopInit();
+
     getType<HomeProvider>(group: groupId);
   }
 

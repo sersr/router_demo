@@ -68,6 +68,12 @@ class _HomePageState extends State<HomePage>
                 router.routerDelegate.routeQueue.log();
               },
             ),
+            btn(
+              text: 'weak ref',
+              onTap: () {
+                DetailOuter.outer.log();
+              },
+            ),
           ],
         ),
       ),
