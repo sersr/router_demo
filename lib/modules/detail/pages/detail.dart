@@ -34,7 +34,7 @@ class _DetailPageState extends State<DetailPage> {
             if (isNRouter) {
               router.pop();
               SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                context.grass<DetailProvider>().log();
+                context.grass<DetailProvider>(group: context.groupId).log();
               });
               return;
             }
