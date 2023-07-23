@@ -60,7 +60,7 @@ class _Detail01PageState extends State<Detail01Page> {
                   NavRoutes.detail02(message: 'demo', groupId: groupId).go();
               // .goReplacement(result: '....');
               // .goUntil((e) => e.nPage == Routes.home);
-              entry.future.then((value) {
+              entry.popped.then((value) {
                 Log.w('value: $value', onlyDebug: false);
               });
 

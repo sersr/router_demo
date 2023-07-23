@@ -3,7 +3,6 @@ import 'package:demo/modules/widgets/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_nop/router.dart';
-import 'package:nop/nop.dart';
 
 import '../../../_routes/route.dart';
 import '../../home/providers/home_provider.dart';
@@ -34,7 +33,9 @@ class _DetailPageState extends State<DetailPage> {
             if (isNRouter) {
               router.pop();
               SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                context.grass<DetailProvider>(group: context.groupId).log();
+                context.grass<DetailProvider>().log();
+                // Global
+                context.grass<DetailProvider>(useEntryGroup: false).log();
               });
               return;
             }
@@ -59,13 +60,6 @@ class _DetailPageState extends State<DetailPage> {
           },
         ),
         const Text('---------- log info ----------'),
-        button(
-            text: 'RouteQueueEntry hashcode',
-            onTap: () {
-              final entry = RouteQueueEntry.of(context);
-              final route = ModalRoute.of(context);
-              Log.w('${entry.hashCode} ${route?.hashCode}');
-            }),
         Builder(builder: (context) {
           return button(
             text: 'home provider local',
@@ -75,7 +69,7 @@ class _DetailPageState extends State<DetailPage> {
           );
         }),
         button(
-          text: 'detail outer',
+          text: 'detail outer singleton',
           onTap: () {
             context.grass<DetailOuter>().log();
 
@@ -83,7 +77,7 @@ class _DetailPageState extends State<DetailPage> {
           },
         ),
         button(
-          text: 'detail provider',
+          text: 'detail provider group(groupList)',
           onTap: () {
             context.grass<DetailProvider>().log();
             // create local value
@@ -92,8 +86,13 @@ class _DetailPageState extends State<DetailPage> {
         button(
           text: 'home shared',
           onTap: () {
+            context.grass<HomeProvider>().homeLog();
+          },
+        ),
+        button(
+          text: 'home group',
+          onTap: () {
             context.grass<HomeProvider>(group: context.groupId).homeLog();
-            // create local value
           },
         ),
       ],
