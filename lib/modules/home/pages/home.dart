@@ -5,8 +5,9 @@ import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/annotation/router.dart';
 
-import '../../detail/pages/detail.dart';
 import '../../detail/pages/page_01.dart';
+import '../../detail/providers/detail_provider.dart';
+import '../../widgets/page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({@Param.query(name: 'key') super.key});
@@ -19,64 +20,55 @@ class _HomePageState extends State<HomePage>
     with RestorationMixin, RouteQueueEntryStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("home"),
-        backgroundColor: Colors.blue,
-        shadowColor: Colors.black,
-        elevation: 5,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            btn(
-              text: 'data',
-              onTap: () {
-                decodeRestorationData();
-              },
-            ),
-            btn(
-              text: 'go detailbuild',
-              onTap: () {
-                final groupId = router.ofEntry(context)?.groupId;
-                router.goPage(Routes.detail01Build,
-                    params: {'newKey': 1},
-                    extra: {
-                      'message': 'hello build',
-                      'data': 'data',
-                    },
-                    groupId: groupId);
-              },
-            ),
-            btn(text: 'go detail page', onTap: onTap),
-            btn(
-              text: 'error test',
-              onTap: () {
-                router.go('/error/path/test');
-              },
-            ),
-            btn(
-              text: 'nav provider',
-              onTap: () {
-                context.grass<DetailProvider>().log();
-              },
-            ),
-            btn(
-              text: 'log routeQueue',
-              onTap: () {
-                // ignore: invalid_use_of_visible_for_testing_member
-                router.routerDelegate.routeQueue.log();
-              },
-            ),
-            btn(
-              text: 'weak ref',
-              onTap: () {
-                DetailOuter.outer.log();
-              },
-            ),
-          ],
+    return BasePage(
+      title: 'home',
+      children: [
+        button(
+          text: 'go detail01.build',
+          onTap: () {
+            final groupId = router.ofEntry(context)?.groupId;
+            router.goPage(Routes.detail01Build,
+                params: {'newKey': 1},
+                extra: {
+                  'message': 'hello build',
+                  'data': 'data',
+                },
+                groupId: groupId);
+          },
         ),
-      ),
+        button(text: 'go detail page', onTap: onTap),
+        button(
+          text: 'error test',
+          onTap: () {
+            router.go('/error/path/test');
+          },
+        ),
+        button(
+          text: 'go singleton test',
+          onTap: () {
+            NavRoutes.singletonTest().go();
+          },
+        ),
+        const Text('-------- log info ----------'),
+        button(
+          text: 'log detail provider',
+          onTap: () {
+            context.grass<DetailProvider>().log();
+          },
+        ),
+        button(
+          text: 'data',
+          onTap: () {
+            decodeRestorationData();
+          },
+        ),
+        button(
+          text: 'weak ref',
+          onTap: () {
+            DetailOuter.outer.log();
+          },
+        ),
+      ],
     );
   }
 

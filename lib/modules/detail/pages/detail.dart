@@ -1,9 +1,13 @@
 import 'package:demo/modules/status.dart';
+import 'package:demo/modules/widgets/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_nop/router.dart';
+import 'package:nop/nop.dart';
 
 import '../../../_routes/route.dart';
+import '../../home/providers/home_provider.dart';
+import '../providers/detail_provider.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key, required this.message});
@@ -21,89 +25,83 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final child = Scaffold(
-      appBar: AppBar(
-        title: Text("detail: ${widget.message}"),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-          child: Column(
-        children: [
-          btn(
-            text: 'back',
-            onTap: () {
-              if (isNRouter) {
-                router.pop();
-                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                  context.grass<DetailProvider>().log();
-                });
-                return;
-              }
-              goRouter.pop();
-            },
-          ),
-          btn(
-            text: 'go page 01',
-            onTap: () {
-              if (isNRouter) {
-                final id = RouteQueueEntry.of(context)?.groupId;
-                NavRoutes.detail01Build(message: 'go page 01', groupId: id)
-                    .go();
-              }
-            },
-          ),
-          Builder(builder: (context) {
-            return btn(
-              text: 'nav provider',
-              onTap: () {
-                context.grass<DetailOuter>().log();
+    final child = BasePage(
+      title: "detail: ${widget.message}",
+      children: [
+        button(
+          text: 'back',
+          onTap: () {
+            if (isNRouter) {
+              router.pop();
+              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                 context.grass<DetailProvider>().log();
-                context.grass<HomeProvider>(group: context.groupId).homeLog();
-                // create local value
-                context.grass<HomeProvider>().homeLog();
-              },
-            );
-          }),
-          btn(
-            text: 'repalce',
+              });
+              return;
+            }
+            goRouter.pop();
+          },
+        ),
+        button(
+          text: 'go detail 01',
+          onTap: () {
+            if (isNRouter) {
+              final id = RouteQueueEntry.of(context)?.groupId;
+              NavRoutes.detail01Build(message: 'go detail 01', groupId: id)
+                  .go();
+            }
+          },
+        ),
+        button(
+          text: 'repalce',
+          onTap: () {
+            NavRoutes.detail(message: 'repalce', groupId: NPage.newGroupKey)
+                .goReplacement();
+          },
+        ),
+        const Text('---------- log info ----------'),
+        button(
+            text: 'RouteQueueEntry hashcode',
             onTap: () {
-              NavRoutes.detail(message: 'repalce', groupId: NPage.newGroupKey)
-                  .goReplacement(immediated: false);
-            },
-          ),
-          btn(
-            text: 'repalce immediated',
+              final entry = RouteQueueEntry.of(context);
+              final route = ModalRoute.of(context);
+              Log.w('${entry.hashCode} ${route?.hashCode}');
+            }),
+        Builder(builder: (context) {
+          return button(
+            text: 'home provider local',
             onTap: () {
-              NavRoutes.detail(
-                      message: 'repalce immediated', groupId: NPage.newGroupKey)
-                  .goReplacement(immediated: true);
+              context.grass<HomeProvider>().homeLog();
             },
-          ),
-        ],
-      )),
+          );
+        }),
+        button(
+          text: 'detail outer',
+          onTap: () {
+            context.grass<DetailOuter>().log();
+
+            // create local value
+          },
+        ),
+        button(
+          text: 'detail provider',
+          onTap: () {
+            context.grass<DetailProvider>().log();
+            // create local value
+          },
+        ),
+        button(
+          text: 'home shared',
+          onTap: () {
+            context.grass<HomeProvider>(group: context.groupId).homeLog();
+            // create local value
+          },
+        ),
+      ],
     );
     // return child;
-    return Green.value(
-      value: HomeProvider(),
+    return Green(
+      create: (_) => HomeProvider(),
       child: child,
     );
   }
-}
-
-Widget btn({required String text, void Function()? onTap}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Material(
-      color: Colors.blue,
-      borderRadius: BorderRadius.circular(3),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(3),
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-          child: Text(text),
-        ),
-      ),
-    ),
-  );
 }

@@ -3,13 +3,14 @@ import 'package:demo/modules/detail/pages/page_01.dart';
 import 'package:demo/modules/detail/pages/page_02.dart';
 import 'package:demo/modules/live/pages/live.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
 
+import '../modules/detail/providers/detail_provider.dart';
 import '../modules/home/pages/home.dart';
+import '../modules/singleton/pages/singleton_test_page.dart';
 
 part 'route.g.dart';
 
@@ -32,10 +33,12 @@ part 'route.g.dart';
       pageBuilder: _Routes.detailBuilder,
     ),
     RouterPage(page: LivePage),
+    RouterPage(page: SingletonTestPage)
   ],
 )
 abstract class _Routes {
-  static Page detailBuilder(RouteQueueEntry entry, Widget child) {
+  static RouteQueueEntryPage detailBuilder(
+      RouteQueueEntry entry, Widget child) {
     return MaterialIgnorePage(
       key: entry.pageKey,
       entry: entry,
@@ -55,60 +58,6 @@ RouteQueueEntry redirect(RouteQueueEntry entry) {
 
 Widget fffPage(String hhh, [String m = '']) {
   return Container();
-}
-
-class HomeProvider with NopLifeCycle {
-  @override
-  void nopInit() {
-    super.nopInit();
-    Log.i('init. $groupId');
-  }
-
-  @override
-  void nopDispose() {
-    super.nopDispose();
-    Log.i('dispose.');
-  }
-
-  void homeLog() {
-    Log.e('home: isGlobal: $isGlobal |groupId: $groupId');
-  }
-}
-
-class DetailOuter {
-  static final outer = DetailOuter();
-
-  void log() {
-    final listener = NopLifeCycle.checkIsNopLisenter(this);
-    Log.e('${listener?.label} ${listener?.length}');
-  }
-}
-
-class DetailProvider with NopLifeCycle {
-  void log() {
-    Log.e('$label isGlobal: $isGlobal |groupId: $groupId |popped: $poped.');
-
-    getType<HomeProvider>(group: groupId).homeLog();
-  }
-
-  @override
-  void onPop() {
-    super.onPop();
-    Log.w('popped.');
-  }
-
-  @override
-  void nopInit() {
-    super.nopInit();
-
-    getType<HomeProvider>(group: groupId);
-  }
-
-  @override
-  void nopDispose() {
-    Log.w('dispose.');
-    super.nopDispose();
-  }
 }
 
 RouteQueueEntry errorBuild(

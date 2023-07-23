@@ -1,7 +1,7 @@
-import 'package:demo/modules/detail/pages/detail.dart';
 import 'package:flutter/material.dart';
 
 import '../../../_routes/route.dart';
+import '../../widgets/page.dart';
 
 class Detail02Page extends StatefulWidget {
   const Detail02Page({super.key, required this.message});
@@ -13,22 +13,16 @@ class Detail02Page extends StatefulWidget {
 class _Detail02PageState extends State<Detail02Page> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("detail02: ${widget.message}"),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            btn(
-              text: 'go home',
-              onTap: () {
-                router.popUntil((e) => e.nPage == Routes.home);
-              },
-            ),
-          ],
+    return BasePage(
+      title: "detail02: ${widget.message}",
+      children: [
+        button(
+          text: 'go home',
+          onTap: () {
+            router.popUntil((e) => e.nPage == Routes.home);
+          },
         ),
-      ),
+      ],
     );
   }
 }

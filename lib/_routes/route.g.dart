@@ -106,9 +106,17 @@ class Routes {
       },
     );
 
+    _singletonTest = NPage(
+      path: 'singletonTest',
+      pageBuilder: (entry) {
+        return MaterialIgnorePage(
+            key: entry.pageKey, entry: entry, child: const SingletonTestPage());
+      },
+    );
+
     _home = NPageMain(
       errorPageBuilder: errorBuild,
-      pages: [_detail, _live],
+      pages: [_detail, _live, _singletonTest],
       path: '/',
       pageBuilder: (entry) {
         return MaterialIgnorePage(
@@ -139,6 +147,8 @@ class Routes {
   static NPage get detail => _instance!._detail;
   late final NPage _live;
   static NPage get live => _instance!._live;
+  late final NPage _singletonTest;
+  static NPage get singletonTest => _instance!._singletonTest;
   late final NPageMain _home;
   static NPageMain get home => _instance!._home;
 }
@@ -186,6 +196,12 @@ class NavRoutes {
   /// see: [NPage.newGroupKey]
   static RouterAction live({groupId}) {
     return RouterAction(Routes.live, Routes.router, groupId: groupId);
+  }
+
+  /// [groupId]
+  /// see: [NPage.newGroupKey]
+  static RouterAction singletonTest({groupId}) {
+    return RouterAction(Routes.singletonTest, Routes.router, groupId: groupId);
   }
 
   /// [groupId]

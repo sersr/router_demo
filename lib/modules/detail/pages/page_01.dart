@@ -6,7 +6,8 @@ import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
 
 import '../../../_routes/route.dart';
-import 'detail.dart';
+import '../../widgets/page.dart';
+import '../providers/detail_provider.dart';
 
 class Data implements NRouterJsonTransfrom {
   const Data(this.value);
@@ -42,47 +43,42 @@ class Detail01Page extends StatefulWidget {
 class _Detail01PageState extends State<Detail01Page> {
   @override
   Widget build(BuildContext context) {
-    final child = Scaffold(
-      appBar: AppBar(
-        title: Text("detail01: ${widget.message}"),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Container(height: 20),
-            Text('${widget.data?.value} | ${widget.hhh} | ${widget.message}'),
-            Container(height: 30),
-            btn(text: 'back', onTap: () => router.pop()),
-            btn(
-                text: 'demo',
-                onTap: () {
-                  final groupId = RouteQueueEntry.of(context)?.groupId;
+    final child = BasePage(
+      title: "detail01: ${widget.message}",
+      children: [
+        Container(height: 20),
+        Text(
+            'data: ${widget.data?.value} |hhh: ${widget.hhh} |message: ${widget.message}'),
+        Container(height: 10),
+        button(text: 'back', onTap: () => router.pop()),
+        button(
+            text: 'replacement detail02',
+            onTap: () {
+              final groupId = RouteQueueEntry.of(context)?.groupId;
 
-                  final entry =
-                      NavRoutes.detail02(message: 'demo', groupId: groupId)
-                          .go();
-                  // .goReplacement(result: '....');
-                  // .goUntil((e) => e.nPage == Routes.home);
-                  entry.future.then((value) {
-                    Log.w('value: $value', onlyDebug: false);
-                  });
+              final entry =
+                  NavRoutes.detail02(message: 'demo', groupId: groupId).go();
+              // .goReplacement(result: '....');
+              // .goUntil((e) => e.nPage == Routes.home);
+              entry.future.then((value) {
+                Log.w('value: $value', onlyDebug: false);
+              });
 
-                  // goRouter.pushReplacement('/detail02');
-                }),
-            btn(
-                text: 'data',
-                onTap: () {
-                  decodeRestorationData();
-                }),
-            btn(
-              text: 'nav provider',
-              onTap: () {
-                context.grass<DetailProvider>(group: null).log();
-              },
-            )
-          ],
-        ),
-      ),
+              // goRouter.pushReplacement('/detail02');
+            }),
+        const Text('---------- log info ----------'),
+        button(
+            text: 'data',
+            onTap: () {
+              decodeRestorationData();
+            }),
+        button(
+          text: 'nav provider',
+          onTap: () {
+            context.grass<DetailProvider>(group: null).log();
+          },
+        )
+      ],
     );
 
     return WillPopScope(
