@@ -53,7 +53,7 @@ class _DetailPageState extends State<DetailPage> {
           },
         ),
         button(
-          text: 'repalce',
+          text: 'replace',
           onTap: () {
             NavRoutes.detail(message: 'repalce', groupId: NPage.newGroupKey)
                 .goReplacement();
