@@ -1,7 +1,7 @@
 import 'package:flutter_nop/flutter_nop.dart';
 import 'package:nop/nop.dart';
 
-class SingletonProvider with NopLifeCycle {
+class SingletonProvider with NopLifecycle {
   static final singleton = SingletonProvider();
 
   @override

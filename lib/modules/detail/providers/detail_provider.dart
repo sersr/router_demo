@@ -3,7 +3,7 @@ import 'package:nop/nop.dart';
 
 import '../../home/providers/home_provider.dart';
 
-class DetailOuter with NopLifeCycle {
+class DetailOuter with NopLifecycle {
   static final outer = DetailOuter();
 
   @override
@@ -28,12 +28,12 @@ class DetailOuter with NopLifeCycle {
   }
 
   void log() {
-    final listener = NopLifeCycle.checkIsNopLisenter(this);
+    final listener = NopLifecycle.checkIsNopLisenter(this);
     Log.e('${listener?.label} ${listener?.length}');
   }
 }
 
-class DetailProvider with NopLifeCycle {
+class DetailProvider with NopLifecycle {
   void log() {
     Log.e('$label isGlobal: $isGlobal |groupId: $groupId |popped: $popped.');
 

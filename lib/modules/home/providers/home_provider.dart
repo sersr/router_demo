@@ -1,7 +1,7 @@
 import 'package:flutter_nop/flutter_nop.dart';
 import 'package:nop/nop.dart';
 
-class HomeProvider with NopLifeCycle {
+class HomeProvider with NopLifecycle {
   @override
   void nopInit() {
     super.nopInit();

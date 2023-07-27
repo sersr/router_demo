@@ -65,7 +65,9 @@ class _HomePageState extends State<HomePage>
         button(
           text: 'weak ref',
           onTap: () {
-            DetailOuter.outer.log();
+            // DetailOuter.outer.log();
+            final nav = Navigator.maybeOf(context);
+            Log.w('$nav: $nav');
           },
         ),
       ],
