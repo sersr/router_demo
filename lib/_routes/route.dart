@@ -6,7 +6,6 @@ import 'package:demo/modules/replacement/pages/new_page.dart';
 import 'package:demo/modules/replacement/pages/replacement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/router.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
 
@@ -92,26 +91,3 @@ RouteQueueEntry errorBuild(
 }
 
 final router = Routes.router;
-
-final goRouter = GoRouter(
-  routes: [
-    GoRoute(
-        path: '/',
-        pageBuilder: (c, state) {
-          return MaterialPage(
-            child: const HomePage(),
-            key: state.pageKey,
-          );
-        },
-        routes: [
-          GoRoute(
-            path: 'detail',
-            pageBuilder: (context, state) {
-              final message = state.queryParameters['message'];
-              return MaterialPage(
-                  child: DetailPage(message: message!), key: state.pageKey);
-            },
-          )
-        ]),
-  ],
-);

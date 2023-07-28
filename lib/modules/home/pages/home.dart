@@ -1,5 +1,4 @@
 import 'package:demo/_routes/route.dart';
-import 'package:demo/modules/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
@@ -79,22 +78,10 @@ class _HomePageState extends State<HomePage>
   }
 
   void onTap() {
-    if (!isNRouter) {
-      goRouter.go('/detail?message=sss');
-      return;
-    }
-
-    // router.go('/detail',
-    //     extra: {'message': 'home hhhh'}, groupId: groupId);
-    // final c = router.go(
-    //     '/detail/detail01Build/23232?message=hello&data=hhhhaxx',
-    //     groupId: groupId);
     final c =
         NavRoutes.detail(message: 'home to detail', groupId: NPage.newGroupKey)
             .go();
     entry = c;
-
-    // goRouter.go('/detail');
   }
 
   @override

@@ -1,4 +1,3 @@
-import 'package:demo/modules/status.dart';
 import 'package:demo/modules/widgets/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -30,26 +29,20 @@ class _DetailPageState extends State<DetailPage> {
         button(
           text: 'back',
           onTap: () {
-            if (isNRouter) {
-              router.pop();
-              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                context.grass<DetailProvider>().log();
-                // Global
-                context.grass<DetailProvider>(useEntryGroup: false).log();
-              });
-              return;
-            }
-            goRouter.pop();
+            router.pop();
+            SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+              context.grass<DetailProvider>().log();
+              // Global
+              context.grass<DetailProvider>(useEntryGroup: false).log();
+            });
+            return;
           },
         ),
         button(
           text: 'go detail 01',
           onTap: () {
-            if (isNRouter) {
-              final id = RouteQueueEntry.of(context)?.groupId;
-              NavRoutes.detail01Build(message: 'go detail 01', groupId: id)
-                  .go();
-            }
+            final id = RouteQueueEntry.of(context)?.groupId;
+            NavRoutes.detail01Build(message: 'go detail 01', groupId: id).go();
           },
         ),
         button(
