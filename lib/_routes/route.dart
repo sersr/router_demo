@@ -90,4 +90,4 @@ RouteQueueEntry errorBuild(
       path: location, params: params, groupId: groupId);
 }
 
-final router = Routes.router;
+NRouter get router => Routes.router;
