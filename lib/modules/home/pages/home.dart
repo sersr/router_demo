@@ -49,6 +49,12 @@ class _HomePageState extends State<HomePage>
             NavRoutes.singletonTest().go();
           },
         ),
+        button(
+          text: 'go replacement',
+          onTap: () {
+            NavRoutes.replacement().go();
+          },
+        ),
         const Text('-------- log info ----------'),
         button(
           text: 'log detail provider',
@@ -65,9 +71,7 @@ class _HomePageState extends State<HomePage>
         button(
           text: 'weak ref',
           onTap: () {
-            // DetailOuter.outer.log();
-            final nav = Navigator.maybeOf(context);
-            Log.w('$nav: $nav');
+            DetailOuter.outer.log();
           },
         ),
       ],

@@ -114,9 +114,36 @@ class Routes {
       },
     );
 
+    _repalcementNew = NPage(
+      path: 'repalcementNew',
+      pageBuilder: (entry) {
+        return MaterialIgnorePage(
+            key: entry.pageKey,
+            entry: entry,
+            child: const RepalcementNewPage());
+      },
+    );
+
+    _repalcementBottomSheet = NPage(
+      path: 'repalcementBottomSheet',
+      pageBuilder: (entry) {
+        return _Routes.replacementBottomSheetPage(
+            entry, const RepalcementBottomSheetPage());
+      },
+    );
+
+    _replacement = NPage(
+      pages: [_repalcementNew, _repalcementBottomSheet],
+      path: 'replacement',
+      pageBuilder: (entry) {
+        return MaterialIgnorePage(
+            key: entry.pageKey, entry: entry, child: const ReplacementPage());
+      },
+    );
+
     _home = NPageMain(
       errorPageBuilder: errorBuild,
-      pages: [_detail, _live, _singletonTest],
+      pages: [_detail, _live, _singletonTest, _replacement],
       path: '/',
       pageBuilder: (entry) {
         return MaterialIgnorePage(
@@ -149,6 +176,12 @@ class Routes {
   static NPage get live => _instance!._live;
   late final NPage _singletonTest;
   static NPage get singletonTest => _instance!._singletonTest;
+  late final NPage _repalcementNew;
+  static NPage get repalcementNew => _instance!._repalcementNew;
+  late final NPage _repalcementBottomSheet;
+  static NPage get repalcementBottomSheet => _instance!._repalcementBottomSheet;
+  late final NPage _replacement;
+  static NPage get replacement => _instance!._replacement;
   late final NPageMain _home;
   static NPageMain get home => _instance!._home;
 }
@@ -202,6 +235,25 @@ class NavRoutes {
   /// see: [NPage.newGroupKey]
   static RouterAction singletonTest({groupId}) {
     return RouterAction(Routes.singletonTest, Routes.router, groupId: groupId);
+  }
+
+  /// [groupId]
+  /// see: [NPage.newGroupKey]
+  static RouterAction repalcementNew({groupId}) {
+    return RouterAction(Routes.repalcementNew, Routes.router, groupId: groupId);
+  }
+
+  /// [groupId]
+  /// see: [NPage.newGroupKey]
+  static RouterAction repalcementBottomSheet({groupId}) {
+    return RouterAction(Routes.repalcementBottomSheet, Routes.router,
+        groupId: groupId);
+  }
+
+  /// [groupId]
+  /// see: [NPage.newGroupKey]
+  static RouterAction replacement({groupId}) {
+    return RouterAction(Routes.replacement, Routes.router, groupId: groupId);
   }
 
   /// [groupId]

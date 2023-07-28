@@ -2,6 +2,8 @@ import 'package:demo/modules/detail/pages/detail.dart';
 import 'package:demo/modules/detail/pages/page_01.dart';
 import 'package:demo/modules/detail/pages/page_02.dart';
 import 'package:demo/modules/live/pages/live.dart';
+import 'package:demo/modules/replacement/pages/new_page.dart';
+import 'package:demo/modules/replacement/pages/replacement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_nop/router.dart';
 import 'package:go_router/go_router.dart';
@@ -33,7 +35,14 @@ part 'route.g.dart';
       pageBuilder: _Routes.detailBuilder,
     ),
     RouterPage(page: LivePage),
-    RouterPage(page: SingletonTestPage)
+    RouterPage(page: SingletonTestPage),
+    RouterPage(page: ReplacementPage, pages: [
+      RouterPage(page: RepalcementNewPage),
+      RouterPage(
+        page: RepalcementBottomSheetPage,
+        pageBuilder: _Routes.replacementBottomSheetPage,
+      ),
+    ]),
   ],
 )
 abstract class _Routes {
@@ -49,6 +58,21 @@ abstract class _Routes {
   @RouteBuilderItem(pages: [Detail01Page.build])
   static Widget detailWidgetBuild(Widget child) {
     return child;
+  }
+
+  static RouteQueueEntryPage replacementBottomSheetPage(
+      RouteQueueEntry entry, Widget child) {
+    return BottomSheetPage(
+        entry: entry,
+        builder: (settings) {
+          return ModalBottomSheetRoute(
+            builder: (context) {
+              return child;
+            },
+            settings: settings,
+            isScrollControlled: false,
+          );
+        });
   }
 }
 
