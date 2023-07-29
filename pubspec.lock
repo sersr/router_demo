@@ -225,10 +225,11 @@ packages:
   flutter_nop:
     dependency: "direct main"
     description:
-      path: "../packages/flutter_nop"
-      relative: true
-    source: path
-    version: "2.1.4"
+      name: flutter_nop
+      sha256: "49e101ee82df0271c3bceee661be4e812e98f78b1cb10ad139b211080747341d"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -354,24 +355,27 @@ packages:
   nop:
     dependency: "direct main"
     description:
-      path: "../packages/nop"
-      relative: true
-    source: path
-    version: "0.0.4+1"
+      name: nop
+      sha256: ed3d7b1e635147d47a1ab0a7fad933ca921e8d9474c973b1d7311672d40935e9
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0+1"
   nop_annotations:
     dependency: "direct main"
     description:
-      path: "../packages/nop_annotations"
-      relative: true
-    source: path
-    version: "0.2.1"
+      name: nop_annotations
+      sha256: "47f3738aa493411b9e2c3ac4d4bb01fb25c096f8aad1a01ac432cb12a235fcaf"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.2"
   nop_gen:
     dependency: "direct dev"
     description:
-      path: "../packages/nop_gen"
-      relative: true
-    source: path
-    version: "0.2.4"
+      name: nop_gen
+      sha256: a210a3a6af18107ecb6da501cbd2d4d9c9f27f4dd67762261ef2e4680e900599
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.0+1"
   package_config:
     dependency: transitive
     description:
@@ -547,3 +551,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.0.0 <4.0.0"
+  flutter: ">=1.17.0"
