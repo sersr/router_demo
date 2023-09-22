@@ -19,7 +19,8 @@ class _Detail02PageState extends State<Detail02Page> {
         button(
           text: 'go home',
           onTap: () {
-            router.popUntil((e) => e.nPage == Routes.home);
+            /// 使用`Navigator.popUntil`方法
+            router.popUntilNav((e) => e.nPage == Routes.home);
           },
         ),
       ],
