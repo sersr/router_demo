@@ -7,7 +7,14 @@ import 'modules/detail/providers/detail_provider.dart';
 import 'modules/home/providers/home_provider.dart';
 
 void main() {
-  Log.logPathFn = (path) => path;
+  final reg = RegExp(r'\((package:)(.+?)/(.*)');
+  Log.logPathFn = (path) {
+    final match = reg.firstMatch(path);
+    return switch (match?[2]) {
+      == 'demo' => '(./lib/${match?[3]}',
+      _ => path,
+    };
+  };
 
   routerApp();
 }

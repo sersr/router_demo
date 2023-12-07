@@ -80,7 +80,7 @@ RouteQueueEntry redirect(RouteQueueEntry entry) {
 }
 
 Widget fffPage(String hhh, [String m = '']) {
-  return Container();
+  return const Center();
 }
 
 RouteQueueEntry errorBuild(

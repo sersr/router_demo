@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_nop/flutter_nop.dart';
 import 'package:flutter_nop/router.dart';
 import 'package:nop/nop.dart';
 import 'package:nop_annotations/nop_annotations.dart';
@@ -77,20 +77,29 @@ class _Detail01PageState extends State<Detail01Page> {
           onTap: () {
             context.grass<DetailProvider>(group: null).log();
           },
+        ),
+        button(
+          text: 'show license',
+          onTap: () {
+            showLicensePage(context: context, applicationName: 'router demo');
+          },
         )
       ],
     );
 
-    return WillPopScope(
+    return Cs(() {
+      return PopScope(
+        canPop: index.value == 0,
+        onPopInvoked: (pop) {
+          index.value -= 1;
+          Log.w('index: $index, dipPop: $pop');
+        },
         child: child,
-        onWillPop: () {
-          index += 1;
-          Log.w('index: $index');
-          return SynchronousFuture(index > 3);
-        });
+      );
+    });
   }
 
-  int index = 0;
+  final index = 4.cs;
 }
 
 void decodeRestorationData() async {
